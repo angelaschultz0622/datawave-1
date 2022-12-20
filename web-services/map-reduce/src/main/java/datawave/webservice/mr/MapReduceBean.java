@@ -599,9 +599,7 @@ public class MapReduceBean {
             if (MapReduceState.STARTED.toString().equals(prevState))
                 jobIdsToKill.add(prevId);
 
-            FileSystem hdfs = null;
-            try {
-                hdfs = getFS(thisJob.getHdfs(), response);
+            try (FileSystem hdfs = getFS(thisJob.getHdfs(), response)) {
                 Path resultsDir = new Path(thisJob.getResultsDirectory());
                 hdfs.getConf().set("mapreduce.jobtracker.address", thisJob.getJobTracker());
                 // Create a Job object
@@ -639,14 +637,6 @@ public class MapReduceBean {
                 log.error(qe);
                 response.addException(qe);
                 throw new DatawaveWebApplicationException(qe, response);
-            } finally {
-                if (null != hdfs) {
-                    try {
-                        hdfs.close();
-                    } catch (IOException e) {
-                        log.error("Error closing HDFS client", e);
-                    }
-                }
             }
         }
     }
@@ -757,11 +747,10 @@ public class MapReduceBean {
         MapReduceInfoResponse result = response.getResults().get(0);
         String hdfs = result.getHdfs();
         String resultsDir = result.getResultsDirectory();
-        final FileSystem fs = getFS(hdfs, response);
+
         final Path resultFile = new Path(resultsDir, fileName);
 
-        FSDataInputStream fis;
-        try {
+        try (final FileSystem fs = getFS(hdfs, response)) {
             if (!fs.exists(resultFile) || !fs.isFile(resultFile)) {
                 NotFoundQueryException qe = new NotFoundQueryException(DatawaveErrorCode.FILE_NOT_FOUND,
                                 MessageFormat.format("{0} at path {1}", fileName, resultsDir));
@@ -769,7 +758,40 @@ public class MapReduceBean {
                 throw new NotFoundException(qe, response);
             }
 
-            fis = fs.open(resultFile);
+            try (FSDataInputStream fis = fs.open(resultFile)) {
+                // Make a final reference to the fis for referencing inside the inner class
+                final FSDataInputStream fiz = fis;
+                return new StreamingOutput() {
+
+                    private Logger log = Logger.getLogger(this.getClass());
+
+                    @Override
+                    public void write(java.io.OutputStream output) throws IOException, WebApplicationException {
+                        byte[] buf = new byte[BUFFER_SIZE];
+                        int read;
+                        try {
+                            read = fiz.read(buf);
+                            while (read != -1) {
+                                output.write(buf, 0, read);
+                                read = fiz.read(buf);
+                            }
+
+                        } catch (Exception e) {
+                            log.error("Error writing result file to output", e);
+                            throw new WebApplicationException(e);
+                        } finally {
+                            try {
+                                if (null != fiz)
+                                    fiz.close();
+                            } catch (IOException e) {
+                                log.error("Error closing FSDataInputStream for file: " + resultFile, e);
+                            }
+                        }
+                    }
+
+                };
+            }
+
         } catch (IOException e1) {
             NotFoundQueryException qe = new NotFoundQueryException(DatawaveErrorCode.RESULT_FILE_ACCESS_ERROR, e1,
                             MessageFormat.format("{0}", resultFile.toString()));
@@ -777,44 +799,6 @@ public class MapReduceBean {
             response.addException(qe);
             throw new NotFoundException(qe, response);
         }
-
-        // Make a final reference to the fis for referencing inside the inner class
-        final FSDataInputStream fiz = fis;
-        return new StreamingOutput() {
-
-            private Logger log = Logger.getLogger(this.getClass());
-
-            @Override
-            public void write(java.io.OutputStream output) throws IOException, WebApplicationException {
-                byte[] buf = new byte[BUFFER_SIZE];
-                int read;
-                try {
-                    read = fiz.read(buf);
-                    while (read != -1) {
-                        output.write(buf, 0, read);
-                        read = fiz.read(buf);
-                    }
-
-                } catch (Exception e) {
-                    log.error("Error writing result file to output", e);
-                    throw new WebApplicationException(e);
-                } finally {
-                    try {
-                        if (null != fiz)
-                            fiz.close();
-                    } catch (IOException e) {
-                        log.error("Error closing FSDataInputStream for file: " + resultFile, e);
-                    }
-                    try {
-                        if (null != fs)
-                            fs.close();
-                    } catch (IOException e) {
-                        log.error("Error closing HDFS client", e);
-                    }
-                }
-            }
-
-        };
     }
 
     /**

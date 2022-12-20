@@ -25,7 +25,7 @@ public class ActiveQueryLog {
     private static final Logger log = Logger.getLogger(ActiveQueryLog.class);
     private static Cache<String,ActiveQueryLog> logCache = null;
     private static final Object logCacheLock = new Object();
-    private static AccumuloConfiguration conf = null;
+    private static volatile AccumuloConfiguration conf = null;
 
     // Accumulo properties
     public static final String MAX_IDLE = "datawave.query.active.maxIdleMs";
@@ -85,7 +85,7 @@ public class ActiveQueryLog {
      *            the associated name by which to look up the desired {@link ActiveQueryLog}. This will typically be the name of a table or query logic.
      * @return the existing or new {@link ActiveQueryLog} for the name
      */
-    public static ActiveQueryLog getInstance(String name) {
+    public static synchronized ActiveQueryLog getInstance(String name) {
         // Return the default instance if the name is blank.
         if (StringUtils.isBlank(name)) {
             name = DEFAULT_NAME;
@@ -93,11 +93,7 @@ public class ActiveQueryLog {
 
         // Initialize the log cache if necessary.
         if (ActiveQueryLog.logCache == null) {
-            synchronized (ActiveQueryLog.logCacheLock) {
-                if (ActiveQueryLog.logCache == null) {
-                    ActiveQueryLog.logCache = Caffeine.newBuilder().build();
-                }
-            }
+            ActiveQueryLog.logCache = Caffeine.newBuilder().build();
         }
 
         // If no log currently exists for the name, create one.

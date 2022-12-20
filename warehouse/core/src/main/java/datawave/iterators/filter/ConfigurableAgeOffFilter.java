@@ -334,7 +334,7 @@ public class ConfigurableAgeOffFilter extends Filter implements OptionDescriber 
     }
 
     /**
-     * This method instantiates the the necessary implementations of the {@code Filter} interface, as they are defined in the configuration file specified by
+     * This method instantiates the necessary implementations of the {@code Filter} interface, as they are defined in the configuration file specified by
      * {@code this.filename}.
      *
      * @throws IllegalArgumentException
@@ -343,54 +343,44 @@ public class ConfigurableAgeOffFilter extends Filter implements OptionDescriber 
      */
     private void initFilterRules() throws IllegalArgumentException, IOException {
         // filename
-        if (null == ruleCache) {
-            synchronized (ConfigurableAgeOffFilter.class) {
-                if (null == ruleCache) {
-                    UPDATE_INTERVAL_MS = getLongProperty(UPDATE_INTERVAL_MS_PROP, DEFAULT_UPDATE_INTERVAL_MS); // 5 ms
-                    EXPIRATION_INTERVAL_MS = getLongProperty(EXPIRATION_INTERVAL_MS_PROP, DEFAULT_EXPIRATION_INTERVAL_MS); // 1 hour
-                    ruleCache = CacheBuilder.newBuilder().refreshAfterWrite(UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
-                                    .expireAfterAccess(EXPIRATION_INTERVAL_MS, TimeUnit.MILLISECONDS).build(new ReloadableCacheBuilder());
-                    // this will schedule a check to see if the update or expiration intervals have changed
-                    // if so the ruleCache will be rebuilt with these new intervals
-                    SIMPLE_TIMER.scheduleWithFixedDelay(() -> {
-                        try {
-                            long interval = getLongProperty(UPDATE_INTERVAL_MS_PROP, DEFAULT_UPDATE_INTERVAL_MS);
-                            long expiration = getLongProperty(EXPIRATION_INTERVAL_MS_PROP, DEFAULT_EXPIRATION_INTERVAL_MS);
-                            if (UPDATE_INTERVAL_MS != interval || EXPIRATION_INTERVAL_MS != expiration) {
-                                log.info("Changing " + UPDATE_INTERVAL_MS_PROP + " to " + interval);
-                                UPDATE_INTERVAL_MS = interval;
-                                log.info("Changing " + EXPIRATION_INTERVAL_MS_PROP + " to " + expiration);
-                                EXPIRATION_INTERVAL_MS = expiration;
-                                ruleCache = CacheBuilder.newBuilder().refreshAfterWrite(UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
-                                                .expireAfterAccess(EXPIRATION_INTERVAL_MS, TimeUnit.MILLISECONDS).build(new ReloadableCacheBuilder());
-                            }
-                        } catch (Throwable t) {
-                            log.error(t, t);
+        synchronized (ConfigurableAgeOffFilter.class) {
+            if (null == ruleCache) {
+                UPDATE_INTERVAL_MS = getLongProperty(UPDATE_INTERVAL_MS_PROP, DEFAULT_UPDATE_INTERVAL_MS); // 5 ms
+                EXPIRATION_INTERVAL_MS = getLongProperty(EXPIRATION_INTERVAL_MS_PROP, DEFAULT_EXPIRATION_INTERVAL_MS); // 1 hour
+                ruleCache = CacheBuilder.newBuilder().refreshAfterWrite(UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
+                                .expireAfterAccess(EXPIRATION_INTERVAL_MS, TimeUnit.MILLISECONDS).build(new ReloadableCacheBuilder());
+                // this will schedule a check to see if the update or expiration intervals have changed
+                // if so the ruleCache will be rebuilt with these new intervals
+                SIMPLE_TIMER.scheduleWithFixedDelay(() -> {
+                    try {
+                        long interval = getLongProperty(UPDATE_INTERVAL_MS_PROP, DEFAULT_UPDATE_INTERVAL_MS);
+                        long expiration = getLongProperty(EXPIRATION_INTERVAL_MS_PROP, DEFAULT_EXPIRATION_INTERVAL_MS);
+                        if (UPDATE_INTERVAL_MS != interval || EXPIRATION_INTERVAL_MS != expiration) {
+                            log.info("Changing " + UPDATE_INTERVAL_MS_PROP + " to " + interval);
+                            UPDATE_INTERVAL_MS = interval;
+                            log.info("Changing " + EXPIRATION_INTERVAL_MS_PROP + " to " + expiration);
+                            EXPIRATION_INTERVAL_MS = expiration;
+                            ruleCache = CacheBuilder.newBuilder().refreshAfterWrite(UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
+                                            .expireAfterAccess(EXPIRATION_INTERVAL_MS, TimeUnit.MILLISECONDS).build(new ReloadableCacheBuilder());
                         }
-                    }, 1, 10, TimeUnit.SECONDS);
-                }
-            }
-        }
-
-        Path filePath = new Path(filename);
-        if (null == fs) {
-            synchronized (ConfigurableAgeOffFilter.class) {
-                if (null == fs) {
-                    if (log.isTraceEnabled()) {
-                        log.trace("Setting FileSystem reference");
+                    } catch (Throwable t) {
+                        log.error(t, t);
                     }
-                    fs = filePath.getFileSystem(new Configuration());
+                }, 1, 10, TimeUnit.SECONDS);
+            }
+
+            Path filePath = new Path(filename);
+            if (null == fs) {
+                fs = filePath.getFileSystem(new Configuration());
+            } else {
+                if (log.isTraceEnabled()) {
+                    log.trace("Reusing file system reference.");
                 }
             }
-        } else {
-            if (log.isTraceEnabled()) {
-                log.trace("Reusing file system reference.");
-            }
+            FileRuleWatcher watcherKey = new FileRuleWatcher(fs, filePath, 1, myEnv);
+
+            copyRules(watcherKey);
         }
-        FileRuleWatcher watcherKey = new FileRuleWatcher(fs, filePath, 1, myEnv);
-
-        copyRules(watcherKey);
-
     }
 
     private long getLongProperty(final String prop, final long defaultValue) {

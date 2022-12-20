@@ -156,26 +156,26 @@ public class IndexStatsQueryLogic extends BaseQueryLogic<FieldStat> {
                     Scanner simpleScanner = ScannerHelper.createScanner(client, table, auths);
                     dataSource = simpleScanner;
                     scanner = simpleScanner;
+                    return doScanResults(scanner, dataTypes, dates, dataSource);
                 } else {
-                    BatchScanner bScanner = ScannerHelper.createBatchScanner(client, table, auths, fields.size());
-                    bScanner.setRanges(buildRanges(fields));
-                    scanner = bScanner;
-                    dataSource = bScanner;
+                    try (BatchScanner bScanner = ScannerHelper.createBatchScanner(client, table, auths, fields.size())) {
+                        bScanner.setRanges(buildRanges(fields));
+                        scanner = bScanner;
+                        dataSource = bScanner;
+                        return doScanResults(scanner, dataTypes, dates, dataSource);
+                    }
                 }
             } catch (Exception e) {
                 log.error(e);
                 throw new IOException(e);
             }
 
+        }
+
+        private List<FieldStat> doScanResults(ScannerBase scanner, Set<String> dataTypes, SortedSet<String> dates, Iterable<Entry<Key,Value>> dataSource)
+                        throws IOException {
             configureScanIterators(scanner, dataTypes, dates);
-
-            List<FieldStat> results = scanResults(dataSource);
-
-            if (scanner instanceof BatchScanner) {
-                scanner.close();
-            }
-
-            return results;
+            return scanResults(dataSource);
         }
 
         public void configureScanIterators(ScannerBase scanner, Collection<String> dataTypes, SortedSet<String> dates) throws IOException {

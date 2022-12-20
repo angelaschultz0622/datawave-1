@@ -536,7 +536,7 @@ public class RecordIterator extends RangeSplit implements SortedKeyValueIterator
             // do nothing, but clean up resources anyway.
         }
         try {
-            Thread.sleep(failureSleep);
+            this.wait(failureSleep);
         } catch (InterruptedException e) {
             try {
                 close();
