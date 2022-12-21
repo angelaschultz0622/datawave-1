@@ -69,8 +69,11 @@ public interface CompositeIngest {
     }
 
     static boolean isOverloadedCompositeField(Collection<String> compFields, String compositeFieldName) {
-        if (compFields != null && !compFields.isEmpty())
-            return compFields.stream().findFirst().get().equals(compositeFieldName);
+        if (compFields != null && !compFields.isEmpty()) {
+            if (compFields.stream().findFirst().isPresent()) {
+                return compFields.stream().findFirst().get().equals(compositeFieldName);
+            }
+        }
         return false;
     }
 

@@ -1,7 +1,9 @@
 package datawave.ingest.protobuf;
 
 import java.util.Comparator;
+import java.util.Objects;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.log4j.Logger;
 
 /**
@@ -96,6 +98,11 @@ public class TermWeightPosition implements Comparable<TermWeightPosition> {
     public boolean equals(TermWeightPosition o) {
 
         return (compareTo(o) == 0);
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(offset).append(prevSkips).append(score).append(zeroOffsetMatch).toHashCode();
     }
 
     /**
