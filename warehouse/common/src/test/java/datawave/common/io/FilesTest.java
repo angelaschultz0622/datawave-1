@@ -41,7 +41,8 @@ public class FilesTest {
         expect(file.mkdirs()).andReturn(false);
         replay(file);
         String err = Files.checkDir(file);
-        assertEquals(err, "Directory, 'EasyMock for class java.io.File' does not exist; and cannot be created");
+        assertEquals(err,
+            "Directory, 'EasyMock for class java.io.File' does not exist; and cannot be created");
     }
 
     @Test
@@ -74,7 +75,8 @@ public class FilesTest {
         expect(file.canExecute()).andReturn(false);
         replay(file);
         String err = Files.checkDir(file);
-        assertEquals(err, "Directory contents for 'EasyMock for class java.io.File' cannot be listed.");
+        assertEquals(err,
+            "Directory contents for 'EasyMock for class java.io.File' cannot be listed.");
     }
 
     @Test

@@ -23,7 +23,7 @@ public class ActiveQueryLog {
     public static final String DEFAULT_NAME = "default_log";
     private static final String DEFAULT_EMPTY_QUERY_ID = new UUID(0, 0).toString();
     private static final Logger log = Logger.getLogger(ActiveQueryLog.class);
-    private static Cache<String,ActiveQueryLog> logCache = null;
+    private static Cache<String, ActiveQueryLog> logCache = null;
     private static final Object logCacheLock = new Object();
     private static AccumuloConfiguration conf = null;
 
@@ -43,7 +43,7 @@ public class ActiveQueryLog {
     volatile private int windowSize = 10;
     private final AtomicLong lastAccess = new AtomicLong(System.currentTimeMillis());
 
-    private Cache<String,ActiveQuery> CACHE = null;
+    private Cache<String, ActiveQuery> CACHE = null;
     private final ReentrantReadWriteLock cacheLock = new ReentrantReadWriteLock();
     private Timer timer = null;
     private TimerTask timerTask = null;
@@ -52,13 +52,14 @@ public class ActiveQueryLog {
 
     synchronized public static void setConfig(final AccumuloConfiguration conf) {
         if (conf != null) {
-            if (ActiveQueryLog.conf == null || conf.getUpdateCount() > ActiveQueryLog.conf.getUpdateCount()) {
+            if (ActiveQueryLog.conf == null
+                || conf.getUpdateCount() > ActiveQueryLog.conf.getUpdateCount()) {
                 ActiveQueryLog.conf = conf;
             }
             // Do not allow access to the cache while updating each log's settings.
             if (logCache != null) {
                 synchronized (ActiveQueryLog.logCacheLock) {
-                    ConcurrentMap<String,ActiveQueryLog> logMap = logCache.asMap();
+                    ConcurrentMap<String, ActiveQueryLog> logMap = logCache.asMap();
                     logMap.values().forEach(log -> log.checkSettings(conf, false));
                 }
             }
@@ -66,8 +67,9 @@ public class ActiveQueryLog {
     }
 
     /**
-     * Return the default {@link ActiveQueryLog} instance. The time the instance was last accessed will be updated to the current time in milliseconds, and if
-     * the instance's timer was cancelled, it will be restarted.
+     * Return the default {@link ActiveQueryLog} instance. The time the instance was last accessed
+     * will be updated to the current time in milliseconds, and if the instance's timer was
+     * cancelled, it will be restarted.
      *
      * @return the default {@link ActiveQueryLog} instance
      */
@@ -76,13 +78,16 @@ public class ActiveQueryLog {
     }
 
     /**
-     * Return the {@link ActiveQueryLog} instance associated with the specified name. If one does not exist, it will be created.
+     * Return the {@link ActiveQueryLog} instance associated with the specified name. If one does
+     * not exist, it will be created.
+     * <p>
+     * If the specified name is null or blank, the default instance with the name
+     * '{@value #DEFAULT_NAME}' will be returned. Additionally, the time the log was last accessed
+     * will be updated to the current time in milliseconds, and if the log's timer was cancelled, it
+     * will be restarted.
      *
-     * If the specified name is null or blank, the default instance with the name '{@value #DEFAULT_NAME}' will be returned. Additionally, the time the log was
-     * last accessed will be updated to the current time in milliseconds, and if the log's timer was cancelled, it will be restarted.
-     *
-     * @param name
-     *            the associated name by which to look up the desired {@link ActiveQueryLog}. This will typically be the name of a table or query logic.
+     * @param name the associated name by which to look up the desired {@link ActiveQueryLog}. This
+     *             will typically be the name of a table or query logic.
      * @return the existing or new {@link ActiveQueryLog} for the name
      */
     public static ActiveQueryLog getInstance(String name) {
@@ -161,7 +166,8 @@ public class ActiveQueryLog {
                     this.timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
-                            long elapsed = System.currentTimeMillis() - ActiveQueryLog.this.getLastAccess();
+                            long elapsed =
+                                System.currentTimeMillis() - ActiveQueryLog.this.getLastAccess();
                             // if no queries have been logged in a
                             // long time then inactivate the timer
                             if (elapsed > HOURS_24_MS) {
@@ -199,11 +205,11 @@ public class ActiveQueryLog {
             if (maxIdle > 0) {
                 cacheLock.writeLock().lock();
                 try {
-                    Cache<String,ActiveQuery> newCache = setupCache(maxIdle);
+                    Cache<String, ActiveQuery> newCache = setupCache(maxIdle);
                     if (this.CACHE == null) {
                         this.CACHE = newCache;
                     } else {
-                        Cache<String,ActiveQuery> oldCache = this.CACHE;
+                        Cache<String, ActiveQuery> oldCache = this.CACHE;
                         this.CACHE = newCache;
                         this.CACHE.putAll(oldCache.asMap());
                     }
@@ -224,7 +230,8 @@ public class ActiveQueryLog {
             try {
                 setMaxIdle(Long.parseLong(maxIdleStr));
             } catch (NumberFormatException e) {
-                log.error("Bad value: (" + maxIdleStr + ") in " + MAX_IDLE + " : " + e.getMessage());
+                log.error(
+                    "Bad value: (" + maxIdleStr + ") in " + MAX_IDLE + " : " + e.getMessage());
             }
         } else if (useDefaults) {
             setMaxIdle(this.maxIdle);
@@ -235,7 +242,8 @@ public class ActiveQueryLog {
             try {
                 setLogPeriod(Long.parseLong(logPeriodStr));
             } catch (NumberFormatException e) {
-                log.error("Bad value: (" + logPeriodStr + ") in " + LOG_PERIOD + " : " + e.getMessage());
+                log.error(
+                    "Bad value: (" + logPeriodStr + ") in " + LOG_PERIOD + " : " + e.getMessage());
             }
         } else if (useDefaults) {
             setLogPeriod(this.logPeriod);
@@ -246,7 +254,8 @@ public class ActiveQueryLog {
             try {
                 setLogMaxQueries(Integer.parseInt(logMaxQueriesStr));
             } catch (NumberFormatException e) {
-                log.error("Bad value: (" + logMaxQueriesStr + ") in " + LOG_MAX_QUERIES + " : " + e.getMessage());
+                log.error("Bad value: (" + logMaxQueriesStr + ") in " + LOG_MAX_QUERIES + " : "
+                    + e.getMessage());
             }
         }
 
@@ -255,13 +264,14 @@ public class ActiveQueryLog {
             try {
                 setWindowSize(Integer.parseInt(windowSizeStr));
             } catch (NumberFormatException e) {
-                log.error("Bad value: (" + windowSizeStr + ") in " + WINDOW_SIZE + " : " + e.getMessage());
+                log.error("Bad value: (" + windowSizeStr + ") in " + WINDOW_SIZE + " : "
+                    + e.getMessage());
             }
         }
     }
 
-    private Cache<String,ActiveQuery> setupCache(long maxIdle) {
-        Caffeine<Object,Object> caffeine = Caffeine.newBuilder();
+    private Cache<String, ActiveQuery> setupCache(long maxIdle) {
+        Caffeine<Object, Object> caffeine = Caffeine.newBuilder();
         caffeine.expireAfterAccess(maxIdle, TimeUnit.MILLISECONDS);
         return caffeine.build();
     }
@@ -287,7 +297,8 @@ public class ActiveQueryLog {
         ActiveQuery activeQuery;
         cacheLock.readLock().lock();
         try {
-            activeQuery = this.CACHE.get(queryIdFor(queryId), s -> new ActiveQuery(queryIdFor(queryId), this.windowSize, name));
+            activeQuery = this.CACHE.get(queryIdFor(queryId),
+                s -> new ActiveQuery(queryIdFor(queryId), this.windowSize, name));
         } finally {
             cacheLock.readLock().unlock();
         }
@@ -296,7 +307,8 @@ public class ActiveQueryLog {
 
     class ActiveQueryTimerTask extends TimerTask {
 
-        public ActiveQueryTimerTask() {}
+        public ActiveQueryTimerTask() {
+        }
 
         @Override
         public void run() {
@@ -314,7 +326,8 @@ public class ActiveQueryLog {
 
             List<ActiveQuerySnapshot> sublist = activeQueryList;
             if (ActiveQueryLog.this.logMaxQueries > 0) {
-                sublist = activeQueryList.subList(0, Math.min(ActiveQueryLog.this.logMaxQueries, activeQueryList.size()));
+                sublist = activeQueryList.subList(0,
+                    Math.min(ActiveQueryLog.this.logMaxQueries, activeQueryList.size()));
             }
 
             // ensure that the timer doesn't get cancelled if we have queries being logged
