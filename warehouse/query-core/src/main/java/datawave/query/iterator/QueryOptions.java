@@ -1290,9 +1290,6 @@ public class QueryOptions implements OptionDescriber {
                 if (options.containsKey(HIT_LIST) && Boolean.parseBoolean(options.get(HIT_LIST))) {
                     this.whiteListedFields.add(JexlEvaluation.HIT_TERM_FIELD);
                 }
-            } else {
-                this.useBlackListedFields = true;
-                this.blackListedFields = new HashSet<>();
             }
         }
         
@@ -1311,6 +1308,9 @@ public class QueryOptions implements OptionDescriber {
                 Collections.addAll(this.blackListedFields, StringUtils.split(fieldList, Constants.PARAM_VALUE_SEP));
             }
         }
+
+        // if we never actually set an allow or deny list, then no need to project results
+        this.projectResults = this.useBlackListedFields || this.useWhiteListedFields;
         
         this.evaluationFilter = null;
         this.getDocumentKey = GetStartKey.instance();
