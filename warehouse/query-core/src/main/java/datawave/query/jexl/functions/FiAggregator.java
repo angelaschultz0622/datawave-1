@@ -45,8 +45,16 @@ public class FiAggregator implements FieldIndexAggregator{
 
     //  builder style methods for legacy values
 
-    public void withMaxNextCount(int maxNextCount){
+    public void withMaxNextCount(int maxNextCount) {
         this.maxNextCount = maxNextCount;
+    }
+
+    public void withFieldsToKeep(Set<String> fieldsToKeep) {
+        this.fieldsToKeep = fieldsToKeep;
+    }
+
+    public void withQueryFilter(EventDataQueryFilter filter) {
+        this.filter = filter;
     }
 
     @Override

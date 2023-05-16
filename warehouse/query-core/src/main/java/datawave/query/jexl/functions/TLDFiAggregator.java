@@ -74,6 +74,14 @@ public class TLDFiAggregator extends FiAggregator {
     //  helper methods
 
     @Override
+    protected Key getParentKey(KeyParser parser) {
+        Text row = parser.getKey().getRow();
+        Text cf = new Text(parser.getDatatype() + '\u0000' + parser.getRootUid());
+        Text cq = new Text(parser.getField() + '\u0000' + parser.getValue());
+        return new Key(row, cf, cq, parser.getKey().getColumnVisibility(), parser.getKey().getTimestamp());
+    }
+
+    @Override
     protected boolean sameUid(KeyParser parser, KeyParser other) {
         return parser.getRootUid().equals(other.getRootUid());
     }
