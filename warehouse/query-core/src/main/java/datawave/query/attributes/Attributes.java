@@ -14,6 +14,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -160,8 +161,8 @@ public class Attributes extends Attribute<Attributes> implements Serializable, A
             // Get the Class for the name of the class of the concrete Attribute
             Attribute<?> attr;
             try {
-                attr = (Attribute<?>) clz.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
+                attr = (Attribute<?>) clz.getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 throw new IOException(e);
             }
             
