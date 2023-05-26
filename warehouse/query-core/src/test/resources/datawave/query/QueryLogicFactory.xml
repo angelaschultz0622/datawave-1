@@ -241,10 +241,12 @@
         <!--    control when to log warnings for long aggregations    -->
         <property name="docAggregationThresholdMs" value="-1" />
         <property name="tfAggregationThresholdMs" value="-1" />
+        <property name="useNewFiAggregators" value="false" />
     </bean>
 
     <bean id="TLDEventQuery" scope="prototype" parent="BaseEventQuery" class="datawave.query.tables.TLDQueryLogic">
         <property name="collapseUids" value="false"/>
+        <property name="useNewFiAggregators" value="false" />
         <property name="indexFilteringClassNames">
             <list value-type="java.lang.String">
                 <value>datawave.query.function.NormalizedVersionPredicate</value>

@@ -215,6 +215,7 @@ public class ShardQueryConfigurationTest {
         Assert.assertEquals(-1, config.getTfFieldSeek());
         Assert.assertEquals(-1, config.getTfNextSeek());
         Assert.assertEquals(-1, config.getDocAggregationThresholdMs());
+        Assert.assertFalse(config.getUseNewFiAggregators());
     }
     
     /**
@@ -308,6 +309,7 @@ public class ShardQueryConfigurationTest {
         other.setReduceQueryFields(true);
         other.setDocAggregationThresholdMs(15000);
         other.setTfAggregationThresholdMs(10000);
+        other.setUseNewFiAggregators(true);
         // seeks
         other.setFiFieldSeek(12);
         other.setFiNextSeek(13);
@@ -413,6 +415,7 @@ public class ShardQueryConfigurationTest {
         Assert.assertEquals(Sets.newHashSet("NoExpansionFieldA"), config.getNoExpansionFields());
         Assert.assertEquals(15000, config.getDocAggregationThresholdMs());
         Assert.assertEquals(10000, config.getTfAggregationThresholdMs());
+        Assert.assertTrue(config.getUseNewFiAggregators());
 
         // assert seeks
         Assert.assertEquals(12, other.getFiFieldSeek());
@@ -511,7 +514,7 @@ public class ShardQueryConfigurationTest {
      */
     @Test
     public void testCheckForNewAdditions() throws IOException {
-        int expectedObjectCount = 201;
+        int expectedObjectCount = 202;
         ShardQueryConfiguration config = ShardQueryConfiguration.create();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(mapper.writeValueAsString(config));

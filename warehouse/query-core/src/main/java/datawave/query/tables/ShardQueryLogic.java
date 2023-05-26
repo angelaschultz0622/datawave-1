@@ -2553,4 +2553,12 @@ public class ShardQueryLogic extends BaseQueryLogic<Entry<Key,Value>> {
     public void setTfAggregationThresholdMs(int tfAggregationThresholdMs){
         getConfig().setTfAggregationThresholdMs(tfAggregationThresholdMs);
     }
+
+    public boolean getUseNewFiAggregators() {
+        return getConfig().getUseNewFiAggregators();
+    }
+
+    public void setUseNewFiAggregators(boolean useNewFiAggregators) {
+        getConfig().setUseNewFiAggregators(useNewFiAggregators);
+    }
 }
