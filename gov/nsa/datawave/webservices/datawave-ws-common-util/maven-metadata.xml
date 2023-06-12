@@ -3,10 +3,10 @@
   <groupId>gov.nsa.datawave.webservices</groupId>
   <artifactId>datawave-ws-common-util</artifactId>
   <versioning>
-    <release>5.7.0</release>
+    <release>5.2.4</release>
     <versions>
-      <version>5.7.0</version>
+      <version>5.2.4</version>
     </versions>
-    <lastUpdated>20230612180450</lastUpdated>
+    <lastUpdated>20230612205205</lastUpdated>
   </versioning>
 </metadata>
