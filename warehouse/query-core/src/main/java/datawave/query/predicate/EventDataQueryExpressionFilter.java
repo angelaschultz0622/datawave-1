@@ -15,6 +15,7 @@ import datawave.query.attributes.AttributeFactory;
 import datawave.query.data.parsers.DatawaveKey;
 import datawave.query.jexl.JexlASTHelper;
 import datawave.query.jexl.visitors.EventDataQueryExpressionVisitor;
+import datawave.query.jexl.visitors.EventDataQueryExpressionVisitor.ExpressionFilter;
 import datawave.query.util.TypeMetadata;
 
 /**
@@ -36,16 +37,14 @@ public class EventDataQueryExpressionFilter implements EventDataQueryFilter {
     @Deprecated
     public EventDataQueryExpressionFilter(ASTJexlScript script, TypeMetadata metadata, Set<String> nonEventFields) {
         AttributeFactory attributeFactory = new AttributeFactory(metadata);
-        Map<String,EventDataQueryExpressionVisitor.ExpressionFilter> expressionFilters = EventDataQueryExpressionVisitor.getExpressionFilters(script,
-                        attributeFactory);
+        Map<String,ExpressionFilter> expressionFilters = EventDataQueryExpressionVisitor.getExpressionFilters(script, attributeFactory);
         setFilters(expressionFilters);
     }
 
     @Deprecated
     public EventDataQueryExpressionFilter(JexlNode node, TypeMetadata metadata, Set<String> nonEventFields) {
         AttributeFactory attributeFactory = new AttributeFactory(metadata);
-        Map<String,EventDataQueryExpressionVisitor.ExpressionFilter> expressionFilters = EventDataQueryExpressionVisitor.getExpressionFilters(node,
-                        attributeFactory);
+        Map<String,ExpressionFilter> expressionFilters = EventDataQueryExpressionVisitor.getExpressionFilters(node, attributeFactory);
         setFilters(expressionFilters);
     }
 
@@ -55,12 +54,12 @@ public class EventDataQueryExpressionFilter implements EventDataQueryFilter {
      * @param filters
      *            a prebuilt map of expression filters
      */
-    public EventDataQueryExpressionFilter(Map<String,EventDataQueryExpressionVisitor.ExpressionFilter> filters) {
+    public EventDataQueryExpressionFilter(Map<String,ExpressionFilter> filters) {
         setFilters(filters);
     }
 
     public EventDataQueryExpressionFilter(EventDataQueryExpressionFilter other) {
-        setFilters(EventDataQueryExpressionVisitor.ExpressionFilter.clone(other.getFilters()));
+        setFilters(ExpressionFilter.clone(other.getFilters()));
         if (other.document != null) {
             document = new Key(other.document);
         }
@@ -70,7 +69,7 @@ public class EventDataQueryExpressionFilter implements EventDataQueryFilter {
     public void startNewDocument(Key document) {
         this.document = document;
         // since we are starting a new document, reset the filters
-        EventDataQueryExpressionVisitor.ExpressionFilter.reset(filters);
+        ExpressionFilter.reset(filters);
     }
 
     @Override
