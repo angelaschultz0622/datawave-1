@@ -101,6 +101,13 @@ public class ShardQueryConfiguration extends GenericQueryConfiguration implement
     private boolean enforceUniqueTermsWithinExpressions = false;
     // should this query reduce the set of fields prior to serialization
     private boolean reduceQueryFields = false;
+    // should the query planner intersect field sets with query fields
+    private boolean reduceFieldSets = false;
+    // should the VisitorFunction reduce field sets
+    private boolean reduceFieldSetsPerShard = false;
+    // should the query planner compress the serialized field sets
+    private boolean compressFieldSets = false;
+
     private boolean sequentialScheduler = false;
     private boolean collectTimingDetails = false;
     private boolean logTimingDetails = false;
@@ -471,6 +478,9 @@ public class ShardQueryConfiguration extends GenericQueryConfiguration implement
         this.setCollapseUidsThreshold(other.getCollapseUidsThreshold());
         this.setEnforceUniqueTermsWithinExpressions(other.getEnforceUniqueTermsWithinExpressions());
         this.setReduceQueryFields(other.getReduceQueryFields());
+        this.setReduceFieldSets(other.getReduceFieldSets());
+        this.setReduceFieldSetsPerShard(other.getReduceFieldSetsPerShard());
+        this.setCompressFieldSets(other.getCompressFieldSets());
         this.setParseTldUids(other.getParseTldUids());
         this.setSequentialScheduler(other.getSequentialScheduler());
         this.setCollectTimingDetails(other.getCollectTimingDetails());
@@ -2031,12 +2041,49 @@ public class ShardQueryConfiguration extends GenericQueryConfiguration implement
         this.enforceUniqueTermsWithinExpressions = enforceUniqueTermsWithinExpressions;
     }
 
+    /**
+     * Deprecated in favor of {@link #getReduceFieldSets()}
+     *
+     * @return a boolean
+     */
+    @Deprecated
     public boolean getReduceQueryFields() {
         return reduceQueryFields;
     }
 
+    /**
+     * Deprecated in favor of {@link #setReduceFieldSets(boolean)}
+     *
+     * @param reduceQueryFields
+     *            boolean
+     */
+    @Deprecated
     public void setReduceQueryFields(boolean reduceQueryFields) {
         this.reduceQueryFields = reduceQueryFields;
+    }
+
+    public boolean getReduceFieldSets() {
+        return reduceFieldSets;
+    }
+
+    public void setReduceFieldSets(boolean reduceFieldSets) {
+        this.reduceFieldSets = reduceFieldSets;
+    }
+
+    public boolean getReduceFieldSetsPerShard() {
+        return reduceFieldSetsPerShard;
+    }
+
+    public void setReduceFieldSetsPerShard(boolean reduceFieldSetsPerShard) {
+        this.reduceFieldSetsPerShard = reduceFieldSetsPerShard;
+    }
+
+    public boolean getCompressFieldSets() {
+        return compressFieldSets;
+    }
+
+    public void setCompressFieldSets(boolean compressFieldSets) {
+        this.compressFieldSets = compressFieldSets;
     }
 
     public boolean getSequentialScheduler() {

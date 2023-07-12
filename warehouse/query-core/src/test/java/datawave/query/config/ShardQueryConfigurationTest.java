@@ -66,6 +66,9 @@ public class ShardQueryConfigurationTest {
         Assert.assertFalse(config.getCollapseUids());
         Assert.assertFalse(config.getParseTldUids());
         Assert.assertFalse(config.getReduceQueryFields());
+        Assert.assertFalse(config.getReduceFieldSets());
+        Assert.assertFalse(config.getReduceFieldSetsPerShard());
+        Assert.assertFalse(config.getCompressFieldSets());
         Assert.assertFalse(config.getSequentialScheduler());
         Assert.assertFalse(config.getCollectTimingDetails());
         Assert.assertFalse(config.getLogTimingDetails());
@@ -309,6 +312,9 @@ public class ShardQueryConfigurationTest {
         other.setVisitorFunctionMaxWeight(visitorFunctionMaxWeight);
         other.setAccumuloPassword("ChangeIt");
         other.setReduceQueryFields(true);
+        other.setReduceFieldSets(true);
+        other.setReduceFieldSetsPerShard(true);
+        other.setCompressFieldSets(true);
         other.setDocAggregationThresholdMs(15000);
         other.setTfAggregationThresholdMs(10000);
         // seeks
@@ -405,6 +411,9 @@ public class ShardQueryConfigurationTest {
         Assert.assertEquals(visitorFunctionMaxWeight, config.getVisitorFunctionMaxWeight());
         Assert.assertEquals("ChangeIt", config.getAccumuloPassword());
         Assert.assertTrue(config.getReduceQueryFields());
+        Assert.assertTrue(config.getReduceFieldSets());
+        Assert.assertTrue(config.getReduceFieldSetsPerShard());
+        Assert.assertTrue(config.getCompressFieldSets());
 
         // Account for QueryImpl.duplicate() generating a random UUID on the duplicate
         QueryImpl expectedQuery = new QueryImpl();
@@ -537,7 +546,7 @@ public class ShardQueryConfigurationTest {
      */
     @Test
     public void testCheckForNewAdditions() throws IOException {
-        int expectedObjectCount = 204;
+        int expectedObjectCount = 207;
         ShardQueryConfiguration config = ShardQueryConfiguration.create();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(mapper.writeValueAsString(config));
