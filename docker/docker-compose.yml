@@ -428,6 +428,32 @@ services:
       executor-pool1:
         condition: service_started
 
+  map:
+    image: datawave/map-service:1.0-SNAPSHOT
+    command:
+      - --spring.output.ansi.enabled=ALWAYS
+      - --spring.profiles.active=consul,compose,remoteauth
+      - --spring.cloud.consul.host=consul
+      - --spring.cloud.consul.discovery.instance-id=$${spring.application.name}:$${random.value}
+#    environment:
+    ports:
+      - "8780:8080"
+      - "9543:8443"
+    volumes:
+      - ${PKI_DIR:-./pki}:/etc/pki:ro
+      - ./logs:/logs
+    networks:
+      - demo
+    healthcheck:
+      test: curl -f http://localhost:8080/map/mgmt/health
+      interval: 10s
+      timeout: 1s
+      start_period: 30s
+      retries: 3
+    depends_on:
+      authorization:
+        condition: service_healthy
+
   executor-pool1:
     entrypoint: ["java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006","-jar","app.jar"]
     image: datawave/query-executor-service:1.0-SNAPSHOT

@@ -78,6 +78,17 @@
             </modules>
         </profile>
         <profile>
+            <id>map-submodule</id>
+            <activation>
+                <file>
+                    <exists>map/pom.xml</exists>
+                </file>
+            </activation>
+            <modules>
+                <module>map</module>
+            </modules>
+        </profile>
+        <profile>
             <id>mapreduce-query-submodule</id>
             <activation>
                 <file>
