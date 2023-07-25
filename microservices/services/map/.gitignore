@@ -1,0 +1,11 @@
+target/
+logs/
+**/node/
+
+.idea/
+*.iml
+*.iws
+
+.classpath
+.project
+.settings/
