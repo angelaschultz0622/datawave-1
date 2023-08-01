@@ -91,3 +91,8 @@ For the Browse Lite extension, you will need to set `Browse-lite: Chrome Executa
 - Single query per page, or multiple?
 - Endpoint that returns all computer information for a query and it's geometries/ranges?
 - Cache individual user's data so that it persists between sessions?
+
+# Technologies to check out
+- Formkit
+- PrimeVue
+- Pinia
