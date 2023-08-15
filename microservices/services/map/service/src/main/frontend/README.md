@@ -86,7 +86,7 @@ For the Browse Lite extension, you will need to set `Browse-lite: Chrome Executa
  - Convert (single? multiple?) WKT to Geo Index
  - Find/highlight range/term, and geo function matching geometry
  - Split a query geometry naturally (in case of geometry collection) or forcefully
- - Set portions of a query as evaluation only with the click of a mouse
+ - Set portions of a query as evaluation only with the click of a mouse (query editor?)
 
 # Questions
 
