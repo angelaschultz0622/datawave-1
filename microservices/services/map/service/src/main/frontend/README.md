@@ -81,6 +81,7 @@ For the Browse Lite extension, you will need to set `Browse-lite: Chrome Executa
 - List queries for the current user?
 - Use a marker for zoomed-out, hard to see geometries
  - Add ability to turn markers on or off
+- Change default polygon colors depending on the basemap
 - Utilities:
  - Convert (single? multiple?) WKT to GeoWave Index
  - Convert (single? multiple?) WKT to Geo Index
