@@ -291,14 +291,19 @@ public class GeoFeatureVisitor extends BaseVisitor {
     }
     
     private GeoFeature createGeo(String fieldName, List<String[]> termsAndRanges, BiFunction<String,String[],SimpleFeature> fieldRangeToFeature) {
-        List<String> wktList = new ArrayList<>();
-        List<SimpleFeature> simpleFeatures = new ArrayList<>();
-        for (String[] termOrRange : termsAndRanges) {
-            SimpleFeature feature = fieldRangeToFeature.apply(fieldName, termOrRange);
-            simpleFeatures.add(feature);
-            wktList.add((String) feature.getProperty(WKT).getValue());
+        GeoFeature geoFeature = new GeoFeature();
+        if (!termsAndRanges.isEmpty()) {
+            List<String> wktList = new ArrayList<>();
+            List<SimpleFeature> simpleFeatures = new ArrayList<>();
+            for (String[] termOrRange : termsAndRanges) {
+                SimpleFeature feature = fieldRangeToFeature.apply(fieldName, termOrRange);
+                simpleFeatures.add(feature);
+                wktList.add((String) feature.getProperty(WKT).getValue());
+            }
+            geoFeature.setWkt(simpleFeatures.size() == 1 ? wktList.get(0) : "GEOMETRYCOLLECTION(" + String.join(", ", wktList) + ")");
+            geoFeature.setGeoJson(DataUtilities.collection(simpleFeatures));
         }
-        return new GeoFeature("GEOMETRYCOLLECTION(" + String.join(", ", wktList) + ")", DataUtilities.collection(simpleFeatures));
+        return geoFeature;
     }
     
     private SimpleFeature createGeoFeature(String fieldName, String[] termOrRange) {

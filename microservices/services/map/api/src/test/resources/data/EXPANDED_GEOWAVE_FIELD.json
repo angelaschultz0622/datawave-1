@@ -4,7 +4,7 @@
       "type" : "GeoWave Geometry",
       "geoByTier" : {
         "0" : {
-          "wkt" : "GEOMETRYCOLLECTION(POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))",
+          "wkt" : "POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90))",
           "geoJson" : {
             "features" : [ {
               "geometry" : {
@@ -24,7 +24,7 @@
           }
         },
         "1" : {
-          "wkt" : "GEOMETRYCOLLECTION(POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))",
+          "wkt" : "POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90))",
           "geoJson" : {
             "features" : [ {
               "geometry" : {
