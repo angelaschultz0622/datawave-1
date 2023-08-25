@@ -10,6 +10,8 @@ import org.apache.commons.jexl2.parser.ASTUnsatisfiableLENode;
 import org.apache.commons.jexl2.parser.ASTUnsatisfiableLTNode;
 import org.apache.commons.jexl2.parser.JexlNode;
 
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
+
 /**
  *
  */

@@ -5,6 +5,7 @@ import org.apache.accumulo.core.security.Authorizations;
 import org.apache.accumulo.core.security.ColumnVisibility;
 import org.apache.hadoop.io.Text;
 
+import datawave.core.query.JexlConstants;
 import datawave.query.jexl.functions.ContentFunctions;
 
 public class Constants {
@@ -47,7 +48,7 @@ public class Constants {
 
     public static final String INDEXED_TERMS_LIST = "INDEXED_TERMS_LIST";
 
-    public static final String ANY_FIELD = "_ANYFIELD_";
+    public static final String ANY_FIELD = JexlConstants.ANY_FIELD;
 
     public static final String NO_FIELD = "_NOFIELD_";
 

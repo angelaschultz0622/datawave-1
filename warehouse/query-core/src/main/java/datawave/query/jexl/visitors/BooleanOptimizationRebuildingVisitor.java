@@ -9,6 +9,8 @@ import org.apache.commons.jexl2.parser.JexlNode;
 import org.apache.commons.jexl2.parser.ParserTreeConstants;
 import org.apache.log4j.Logger;
 
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.query.util.Tuple2;
 
 /**

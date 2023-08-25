@@ -52,6 +52,7 @@ import com.google.common.collect.Sets;
 import com.google.common.collect.UnmodifiableIterator;
 
 import datawave.core.iterators.DatawaveFieldIndexListIteratorJexl;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.data.type.Type;
 import datawave.data.type.util.NumericalEncoder;
 import datawave.ingest.data.config.ingest.CompositeIngest;
@@ -105,7 +106,6 @@ import datawave.query.jexl.functions.KeyAdjudicator;
 import datawave.query.jexl.visitors.DelayedNonEventSubTreeVisitor;
 import datawave.query.jexl.visitors.IteratorBuildingVisitor;
 import datawave.query.jexl.visitors.SatisfactionVisitor;
-import datawave.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.query.jexl.visitors.VariableNameVisitor;
 import datawave.query.postprocessing.tf.TFFactory;
 import datawave.query.postprocessing.tf.TermFrequencyConfig;

@@ -7,8 +7,8 @@ import org.apache.commons.jexl2.parser.ASTJexlScript;
 import org.apache.commons.jexl2.parser.JexlNode;
 import org.apache.log4j.Logger;
 
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
 import datawave.query.config.ShardQueryConfiguration;
-import datawave.query.jexl.visitors.RebuildingVisitor;
 import datawave.query.planner.pushdown.rules.DelayedPredicatePushDown;
 import datawave.query.planner.pushdown.rules.PushDownRule;
 import datawave.query.tables.ScannerFactory;

@@ -10,6 +10,7 @@ import org.apache.commons.jexl2.parser.ASTLTNode;
 import org.apache.commons.jexl2.parser.ASTNENode;
 import org.apache.commons.jexl2.parser.JexlNode;
 
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
 import datawave.query.jexl.JexlASTHelper;
 
 /**

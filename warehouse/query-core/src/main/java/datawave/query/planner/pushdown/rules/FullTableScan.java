@@ -12,8 +12,8 @@ import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
 
+import datawave.core.query.jexl.JexlNodeFactory;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.JexlNodeFactory;
 import datawave.query.parser.JavaRegexAnalyzer;
 import datawave.query.parser.JavaRegexAnalyzer.JavaRegexParseException;
 import datawave.query.planner.pushdown.Cost;

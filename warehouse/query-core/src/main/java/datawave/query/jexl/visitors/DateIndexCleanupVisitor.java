@@ -8,6 +8,7 @@ import org.apache.commons.jexl2.parser.ASTReference;
 import org.apache.commons.jexl2.parser.ASTReferenceExpression;
 import org.apache.commons.jexl2.parser.JexlNode;
 
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
 import datawave.query.Constants;
 import datawave.query.jexl.JexlASTHelper;
 

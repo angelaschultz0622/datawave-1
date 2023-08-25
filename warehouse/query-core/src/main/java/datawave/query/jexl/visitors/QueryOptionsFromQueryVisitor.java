@@ -23,6 +23,7 @@ import org.apache.commons.jexl2.parser.JexlNodes;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
 import datawave.query.QueryParameters;
 import datawave.query.attributes.UniqueFields;
 import datawave.query.attributes.UniqueGranularity;

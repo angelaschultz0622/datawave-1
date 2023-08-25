@@ -2,6 +2,7 @@ package datawave.query.jexl.functions;
 
 import org.apache.commons.jexl2.parser.ASTFunctionNode;
 
+import datawave.core.query.jexl.functions.FunctionJexlNodeVisitor;
 import datawave.query.jexl.ArithmeticJexlEngines;
 
 /**

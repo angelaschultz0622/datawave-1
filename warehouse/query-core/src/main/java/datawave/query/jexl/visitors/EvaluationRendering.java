@@ -11,11 +11,13 @@ import org.apache.log4j.Logger;
 
 import com.google.common.base.Preconditions;
 
+import datawave.core.query.jexl.nodes.ExceededOrThresholdMarkerJexlNode;
+import datawave.core.query.jexl.nodes.ExceededTermThresholdMarkerJexlNode;
+import datawave.core.query.jexl.nodes.ExceededValueThresholdMarkerJexlNode;
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.visitors.BaseVisitor;
+import datawave.core.query.jexl.visitors.JexlStringBuildingVisitor;
 import datawave.query.config.ShardQueryConfiguration;
-import datawave.query.jexl.nodes.ExceededOrThresholdMarkerJexlNode;
-import datawave.query.jexl.nodes.ExceededTermThresholdMarkerJexlNode;
-import datawave.query.jexl.nodes.ExceededValueThresholdMarkerJexlNode;
-import datawave.query.jexl.nodes.QueryPropertyMarker;
 import datawave.query.util.MetadataHelper;
 
 /**

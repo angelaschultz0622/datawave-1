@@ -12,8 +12,8 @@ import org.junit.Test;
 
 import com.google.common.collect.Sets;
 
+import datawave.core.query.jexl.JexlNodeFactory;
 import datawave.data.type.LcNoDiacriticsType;
-import datawave.query.jexl.JexlNodeFactory;
 import datawave.query.util.TypeMetadata;
 
 public class TermFrequencyDataFilterTest {

@@ -16,7 +16,11 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
-import datawave.data.type.DateType;
+import datawave.core.query.jexl.nodes.ExceededOrThresholdMarkerJexlNode;
+import datawave.core.query.jexl.nodes.ExceededTermThresholdMarkerJexlNode;
+import datawave.core.query.jexl.nodes.ExceededValueThresholdMarkerJexlNode;
+import datawave.core.query.jexl.nodes.IndexHoleMarkerJexlNode;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.data.type.IpAddressType;
 import datawave.data.type.LcNoDiacriticsType;
 import datawave.data.type.LcType;
@@ -28,10 +32,6 @@ import datawave.data.type.TrimLeadingZerosType;
 import datawave.data.type.Type;
 import datawave.query.config.ShardQueryConfiguration;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.nodes.ExceededOrThresholdMarkerJexlNode;
-import datawave.query.jexl.nodes.ExceededTermThresholdMarkerJexlNode;
-import datawave.query.jexl.nodes.ExceededValueThresholdMarkerJexlNode;
-import datawave.query.jexl.nodes.IndexHoleMarkerJexlNode;
 import datawave.query.util.MockMetadataHelper;
 import datawave.test.JexlNodeAssert;
 

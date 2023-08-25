@@ -41,6 +41,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
 import datawave.core.common.logging.ThreadConfigurableLogger;
+import datawave.core.query.jexl.JexlNodeFactory;
+import datawave.core.query.jexl.LiteralRange;
+import datawave.core.query.jexl.nodes.BoundedRange;
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.data.type.DiscreteIndexType;
 import datawave.data.type.NoOpType;
 import datawave.ingest.data.config.ingest.CompositeIngest;
@@ -51,10 +57,6 @@ import datawave.query.composite.CompositeUtils;
 import datawave.query.config.ShardQueryConfiguration;
 import datawave.query.exceptions.DatawaveFatalQueryException;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.JexlNodeFactory;
-import datawave.query.jexl.LiteralRange;
-import datawave.query.jexl.nodes.BoundedRange;
-import datawave.query.jexl.nodes.QueryPropertyMarker;
 import datawave.webservice.query.exception.DatawaveErrorCode;
 import datawave.webservice.query.exception.QueryException;
 

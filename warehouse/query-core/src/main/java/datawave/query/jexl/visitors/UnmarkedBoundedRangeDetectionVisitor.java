@@ -5,9 +5,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.commons.jexl2.parser.ASTReference;
 import org.apache.commons.jexl2.parser.JexlNode;
 
+import datawave.core.query.jexl.nodes.BoundedRange;
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.visitors.BaseVisitor;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.nodes.BoundedRange;
-import datawave.query.jexl.nodes.QueryPropertyMarker;
 
 public class UnmarkedBoundedRangeDetectionVisitor extends BaseVisitor {
 

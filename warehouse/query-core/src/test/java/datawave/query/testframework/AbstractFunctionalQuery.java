@@ -51,6 +51,8 @@ import com.google.common.collect.Sets;
 
 import datawave.core.common.connection.AccumuloConnectionFactory;
 import datawave.core.query.configuration.GenericQueryConfiguration;
+import datawave.core.query.jexl.nodes.ExceededValueThresholdMarkerJexlNode;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.core.query.logic.QueryLogic;
 import datawave.core.query.logic.QueryLogicFactory;
 import datawave.core.query.result.event.DefaultResponseObjectFactory;
@@ -65,9 +67,7 @@ import datawave.query.attributes.Document;
 import datawave.query.config.ShardQueryConfiguration;
 import datawave.query.iterator.ivarator.IvaratorCacheDirConfig;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.nodes.ExceededValueThresholdMarkerJexlNode;
 import datawave.query.jexl.visitors.TreeEqualityVisitor;
-import datawave.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.query.planner.DefaultQueryPlanner;
 import datawave.query.tables.CountingShardQueryLogic;
 import datawave.query.tables.ShardQueryLogic;

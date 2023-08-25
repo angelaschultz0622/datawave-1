@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 
 import com.google.common.base.Preconditions;
 
-import datawave.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
 import datawave.query.planner.pushdown.Cost;
 import datawave.query.planner.pushdown.CostEstimator;
 import datawave.query.planner.pushdown.PushDownVisitor;

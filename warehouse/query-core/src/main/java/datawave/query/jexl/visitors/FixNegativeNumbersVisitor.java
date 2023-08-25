@@ -6,7 +6,8 @@ import org.apache.commons.jexl2.parser.ASTUnaryMinusNode;
 import org.apache.commons.jexl2.parser.JexlNode;
 import org.apache.commons.jexl2.parser.ParserTreeConstants;
 
-import datawave.query.jexl.JexlNodeFactory;
+import datawave.core.query.jexl.JexlNodeFactory;
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
 
 public class FixNegativeNumbersVisitor extends RebuildingVisitor {
 

@@ -15,14 +15,15 @@ import org.apache.commons.jexl2.parser.JexlNode;
 import org.apache.commons.jexl2.parser.JexlNodes;
 import org.apache.log4j.Logger;
 
+import datawave.core.query.jexl.LiteralRange;
+import datawave.core.query.jexl.nodes.BoundedRange;
+import datawave.core.query.jexl.nodes.IndexHoleMarkerJexlNode;
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
 import datawave.query.config.IndexHole;
 import datawave.query.config.ShardQueryConfiguration;
 import datawave.query.exceptions.DatawaveFatalQueryException;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.LiteralRange;
-import datawave.query.jexl.nodes.BoundedRange;
-import datawave.query.jexl.nodes.IndexHoleMarkerJexlNode;
-import datawave.query.jexl.nodes.QueryPropertyMarker;
 import datawave.query.parser.JavaRegexAnalyzer;
 import datawave.query.util.MetadataHelper;
 

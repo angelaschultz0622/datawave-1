@@ -10,11 +10,11 @@ import org.apache.log4j.Logger;
 
 import datawave.core.common.edgedictionary.EdgeDictionaryProvider;
 import datawave.core.query.configuration.GenericQueryConfiguration;
+import datawave.core.query.jexl.visitors.JexlStringBuildingVisitor;
 import datawave.edge.model.EdgeModelFields;
 import datawave.edge.model.EdgeModelFieldsFactory;
 import datawave.query.QueryParameters;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.visitors.JexlStringBuildingVisitor;
 import datawave.query.jexl.visitors.QueryModelVisitor;
 import datawave.query.model.edge.EdgeQueryModel;
 import datawave.query.tables.ShardQueryLogic;

@@ -3,9 +3,10 @@ package datawave.query.jexl.visitors;
 import org.apache.commons.jexl2.parser.ASTAndNode;
 import org.apache.commons.jexl2.parser.JexlNode;
 
-import datawave.query.jexl.nodes.ExceededOrThresholdMarkerJexlNode;
-import datawave.query.jexl.nodes.ExceededValueThresholdMarkerJexlNode;
-import datawave.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.nodes.ExceededOrThresholdMarkerJexlNode;
+import datawave.core.query.jexl.nodes.ExceededValueThresholdMarkerJexlNode;
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.visitors.BaseVisitor;
 
 /**
  * A visitor that checks the query tree to determine if the query requires an ivarator (ExceededValue or ExceededOr)

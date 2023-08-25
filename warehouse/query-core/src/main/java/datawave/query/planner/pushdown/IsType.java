@@ -5,7 +5,7 @@ import org.apache.commons.jexl2.parser.JexlNode;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 
-import datawave.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
 
 /**
  *

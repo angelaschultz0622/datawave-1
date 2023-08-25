@@ -54,8 +54,8 @@ import org.apache.commons.jexl2.parser.Node;
 import org.apache.commons.jexl2.parser.ParserVisitor;
 import org.apache.commons.jexl2.parser.SimpleNode;
 
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
 import datawave.query.jexl.NodeTypeCount;
-import datawave.query.jexl.nodes.QueryPropertyMarker;
 
 /**
  * Counts the total number of nodes for each node type present in a query tree.

@@ -2459,12 +2459,28 @@ public class ShardQueryLogic extends BaseQueryLogic<Entry<Key,Value>> implements
         getConfig().setGeoWaveMaxRangeOverlap(geoWaveMaxRangeOverlap);
     }
 
+    public boolean isOptimizeGeoRanges() {
+        return getConfig().isOptimizeGeoRanges();
+    }
+
+    public void setOptimizeGeoRanges(boolean optimizeGeoRanges) {
+        getConfig().setOptimizeGeoRanges(optimizeGeoRanges);
+    }
+
     public boolean isOptimizeGeoWaveRanges() {
         return getConfig().isOptimizeGeoWaveRanges();
     }
 
     public void setOptimizeGeoWaveRanges(boolean optimizeGeoWaveRanges) {
         getConfig().setOptimizeGeoWaveRanges(optimizeGeoWaveRanges);
+    }
+
+    public int getGeoMaxEnvelopes() {
+        return getConfig().getGeoMaxEnvelopes();
+    }
+
+    public void setGeoMaxEnvelopes(int geoMaxEnvelopes) {
+        getConfig().setGeoMaxEnvelopes(geoMaxEnvelopes);
     }
 
     public int getGeoWaveMaxEnvelopes() {

@@ -1,9 +1,6 @@
 package datawave.query.composite;
 
-import static org.apache.commons.jexl2.parser.JexlNodes.children;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +19,10 @@ import org.apache.commons.jexl2.parser.JexlNode;
 
 import com.google.common.collect.Sets;
 
+import datawave.core.query.jexl.JexlNodeFactory;
+import datawave.core.query.jexl.LiteralRange;
 import datawave.data.type.DiscreteIndexType;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.JexlNodeFactory;
-import datawave.query.jexl.LiteralRange;
 
 /**
  * A composite range is a special type of composite which is used to create a single bounded range from multiple terms. Composite ranges can only be created

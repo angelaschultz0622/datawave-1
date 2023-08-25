@@ -27,8 +27,8 @@ import org.apache.commons.jexl2.parser.JexlNodes;
 
 import com.google.common.collect.Multimap;
 
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.visitors.RebuildingVisitor;
 
 /**
  * This is a visitor which is used to fully distribute anded nodes into a given node. The visitor will only distribute the anded nodes to those descendant nodes

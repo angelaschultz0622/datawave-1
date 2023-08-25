@@ -7,6 +7,7 @@ import org.apache.commons.jexl2.parser.JexlNode;
 import org.apache.commons.jexl2.parser.JexlNodes;
 import org.apache.commons.jexl2.parser.ParserTreeConstants;
 
+import datawave.core.query.jexl.visitors.BaseVisitor;
 import datawave.query.jexl.JexlASTHelper;
 
 /**

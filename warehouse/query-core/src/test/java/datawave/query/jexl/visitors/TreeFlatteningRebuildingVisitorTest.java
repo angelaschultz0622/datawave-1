@@ -19,9 +19,11 @@ import org.apache.commons.jexl2.parser.ParserTreeConstants;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
+import datawave.core.query.jexl.JexlNodeFactory;
+import datawave.core.query.jexl.visitors.JexlStringBuildingVisitor;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
+import datawave.core.query.jexl.visitors.validate.ASTValidator;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.JexlNodeFactory;
-import datawave.query.jexl.visitors.validate.ASTValidator;
 import datawave.query.language.parser.jexl.LuceneToJexlQueryParser;
 import datawave.test.JexlNodeAssert;
 

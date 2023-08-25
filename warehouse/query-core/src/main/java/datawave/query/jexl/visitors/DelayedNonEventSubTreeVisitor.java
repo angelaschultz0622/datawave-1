@@ -14,9 +14,11 @@ import org.apache.commons.jexl2.parser.JexlNode;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.visitors.BaseVisitor;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.query.iterator.NestedIterator;
 import datawave.query.iterator.logic.IndexIteratorBridge;
-import datawave.query.jexl.nodes.QueryPropertyMarker;
 
 /**
  * Visitor builds a map from all nonEvent fields contained within delayed subtrees to their respective processing nodes. This map then can be used with the

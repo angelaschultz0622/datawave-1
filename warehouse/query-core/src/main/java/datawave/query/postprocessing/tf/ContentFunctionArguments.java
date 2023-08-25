@@ -7,9 +7,10 @@ import java.util.Locale;
 import org.apache.commons.jexl2.parser.JexlNode;
 import org.apache.commons.jexl2.parser.ParseException;
 
+import datawave.core.query.jexl.visitors.JexlStringBuildingVisitor;
+import datawave.core.query.postprocessing.tf.Function;
 import datawave.query.Constants;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.visitors.JexlStringBuildingVisitor;
 
 class ContentFunctionArguments {
     private List<String> terms;

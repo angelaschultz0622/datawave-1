@@ -14,10 +14,12 @@ import org.apache.commons.jexl2.parser.ASTReferenceExpression;
 import org.apache.commons.jexl2.parser.JexlNode;
 import org.apache.commons.jexl2.parser.JexlNodes;
 
+import datawave.core.query.jexl.JexlNodeFactory;
+import datawave.core.query.jexl.nodes.BoundedRange;
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.visitors.BaseVisitor;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.JexlNodeFactory;
-import datawave.query.jexl.nodes.BoundedRange;
-import datawave.query.jexl.nodes.QueryPropertyMarker;
 
 /**
  * Pushdown negations until they are either wrapping leaf nodes or bounded ranges. The purpose of this class is to remove edge cases from evaluating

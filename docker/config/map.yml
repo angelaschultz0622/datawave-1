@@ -1,0 +1,13 @@
+datawave:
+  map:
+    dictionaryUri: 'https://dictionary:8443/dictionary/data/v1/'
+    geoFields:
+      - GEO_FIELD
+    geowaveFields:
+      - GEOWAVE_FIELD
+      - POINT_FIELD
+    geoTypes:
+      - "Combined latitude, longitude"
+    geowaveTypes:
+      - "Geometry"
+      - "Point Geometry"

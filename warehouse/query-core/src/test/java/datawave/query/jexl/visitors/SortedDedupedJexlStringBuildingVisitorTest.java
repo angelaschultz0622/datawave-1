@@ -1,7 +1,6 @@
 package datawave.query.jexl.visitors;
 
-import static datawave.query.jexl.JexlNodeFactory.buildEQNode;
-import static datawave.query.jexl.visitors.JexlStringBuildingVisitor.buildQueryWithoutParse;
+import static datawave.core.query.jexl.JexlNodeFactory.buildEQNode;
 
 import java.util.Arrays;
 
@@ -13,8 +12,10 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
+import datawave.core.query.jexl.JexlNodeFactory;
+import datawave.core.query.jexl.visitors.JexlStringBuildingVisitor;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.JexlNodeFactory;
 
 public class SortedDedupedJexlStringBuildingVisitorTest {
 

@@ -7,7 +7,7 @@ import org.apache.commons.jexl2.parser.JexlNode;
 
 import com.google.common.collect.PeekingIterator;
 
-import datawave.query.jexl.JexlNodeFactory;
+import datawave.core.query.jexl.JexlNodeFactory;
 import datawave.query.tables.RangeStreamScanner;
 import datawave.query.util.Tuple2;
 

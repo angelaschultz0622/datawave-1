@@ -7,8 +7,8 @@ import java.util.Objects;
 import com.google.common.collect.Multimap;
 
 import datawave.core.query.configuration.QueryData;
+import datawave.core.query.jexl.LiteralRange;
 import datawave.query.config.ShardIndexQueryConfiguration;
-import datawave.query.jexl.LiteralRange;
 import datawave.webservice.query.Query;
 
 /**

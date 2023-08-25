@@ -7,9 +7,9 @@ import org.apache.commons.jexl2.parser.JexlNode;
 import org.apache.commons.jexl2.parser.ParseException;
 import org.assertj.core.api.AbstractAssert;
 
+import datawave.core.query.jexl.visitors.JexlStringBuildingVisitor;
+import datawave.core.query.jexl.visitors.PrintingVisitor;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.visitors.JexlStringBuildingVisitor;
-import datawave.query.jexl.visitors.PrintingVisitor;
 import datawave.query.jexl.visitors.TreeEqualityVisitor;
 
 /**

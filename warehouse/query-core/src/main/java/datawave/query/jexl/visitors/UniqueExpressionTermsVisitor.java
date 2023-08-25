@@ -16,6 +16,10 @@ import org.apache.commons.jexl2.parser.JexlNode;
 import org.apache.commons.jexl2.parser.JexlNodes;
 import org.apache.log4j.Logger;
 
+import datawave.core.query.jexl.visitors.JexlStringBuildingVisitor;
+import datawave.core.query.jexl.visitors.RebuildingVisitor;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
+
 /**
  * Visitor that enforces node uniqueness within AND or OR expressions. Nodes can be single nodes or subtrees.
  *

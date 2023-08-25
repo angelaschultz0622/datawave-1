@@ -43,6 +43,10 @@ import org.apache.lucene.util.fst.FST;
 import com.google.common.collect.Maps;
 
 import datawave.core.iterators.DatawaveFieldIndexListIteratorJexl;
+import datawave.core.query.jexl.LiteralRange;
+import datawave.core.query.jexl.nodes.ExceededOrThresholdMarkerJexlNode;
+import datawave.core.query.jexl.nodes.QueryPropertyMarker;
+import datawave.core.query.jexl.visitors.JexlStringBuildingVisitor;
 import datawave.marking.MarkingFunctions;
 import datawave.marking.MarkingFunctionsFactory;
 import datawave.query.attributes.Attribute;
@@ -51,9 +55,6 @@ import datawave.query.attributes.ValueTuple;
 import datawave.query.collections.FunctionalSet;
 import datawave.query.jexl.functions.ContentFunctionsDescriptor;
 import datawave.query.jexl.functions.QueryFunctions;
-import datawave.query.jexl.nodes.ExceededOrThresholdMarkerJexlNode;
-import datawave.query.jexl.nodes.QueryPropertyMarker;
-import datawave.query.jexl.visitors.JexlStringBuildingVisitor;
 
 /**
  * Extended so that calls to a function node, which can return a collection of 'hits' instead of a Boolean, can be evaluated as true/false based on the size of

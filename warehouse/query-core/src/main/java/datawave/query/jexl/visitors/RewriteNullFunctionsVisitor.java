@@ -63,9 +63,11 @@ import org.apache.commons.jexl2.parser.JexlNodes;
 import org.apache.commons.jexl2.parser.ParserTreeConstants;
 import org.apache.commons.jexl2.parser.SimpleNode;
 
+import datawave.core.query.jexl.JexlNodeFactory;
+import datawave.core.query.jexl.functions.FunctionJexlNodeVisitor;
+import datawave.core.query.jexl.visitors.BaseVisitor;
+import datawave.core.query.jexl.visitors.QueryPropertyMarkerVisitor;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.JexlNodeFactory;
-import datawave.query.jexl.functions.FunctionJexlNodeVisitor;
 
 /**
  * This visitor prepares the query tree for the {@link IsNotNullPruningVisitor}. It should be run after QueryModel expansion.

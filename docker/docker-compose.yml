@@ -297,9 +297,10 @@ services:
         condition: service_healthy
 
   dictionary:
-    profiles:
-      - dictionary
-      - full
+    # profiles:
+    #   - dictionary
+    #   - full
+    entrypoint: ["java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005","-jar","app.jar"]
     image: datawave/dictionary-service:3.0-SNAPSHOT
     command:
       - --spring.output.ansi.enabled=ALWAYS
@@ -317,6 +318,7 @@ services:
     ports:
       - "8280:8080"
       - "8643:8443"
+      - "52005:5005"
     volumes:
       - ${PKI_DIR:-./pki}:/etc/pki:ro
       - ./logs:/logs
@@ -429,6 +431,7 @@ services:
         condition: service_started
 
   map:
+    entrypoint: ["java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005","-jar","app.jar"]
     image: datawave/map-service:1.0-SNAPSHOT
     command:
       - --spring.output.ansi.enabled=ALWAYS
@@ -439,6 +442,7 @@ services:
     ports:
       - "8780:8080"
       - "9543:8443"
+      - "51005:5005"
     volumes:
       - ${PKI_DIR:-./pki}:/etc/pki:ro
       - ./logs:/logs

@@ -8,11 +8,11 @@ import org.apache.commons.jexl2.parser.ASTFunctionNode;
 import org.apache.commons.jexl2.parser.ASTNRNode;
 import org.apache.commons.jexl2.parser.JexlNode;
 
+import datawave.core.query.jexl.functions.FunctionJexlNodeVisitor;
 import datawave.query.config.ShardQueryConfiguration;
 import datawave.query.jexl.JexlASTHelper;
 import datawave.query.jexl.functions.EvaluationPhaseFilterFunctions;
 import datawave.query.jexl.functions.EvaluationPhaseFilterFunctionsDescriptor;
-import datawave.query.jexl.functions.FunctionJexlNodeVisitor;
 import datawave.query.util.MetadataHelper;
 
 /**

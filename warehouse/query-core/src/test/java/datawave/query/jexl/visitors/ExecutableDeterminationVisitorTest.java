@@ -1,8 +1,5 @@
 package datawave.query.jexl.visitors;
 
-import static org.hamcrest.CoreMatchers.any;
-import static org.hamcrest.CoreMatchers.anything;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,9 +22,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import datawave.core.query.jexl.JexlNodeFactory;
 import datawave.query.config.ShardQueryConfiguration;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.JexlNodeFactory;
 import datawave.query.util.MetadataHelper;
 
 public class ExecutableDeterminationVisitorTest extends EasyMockSupport {

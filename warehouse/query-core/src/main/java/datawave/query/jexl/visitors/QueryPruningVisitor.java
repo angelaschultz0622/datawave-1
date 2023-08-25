@@ -64,6 +64,9 @@ import org.apache.commons.jexl2.parser.SimpleNode;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import datawave.core.query.jexl.visitors.BaseVisitor;
+import datawave.core.query.jexl.visitors.JexlStringBuildingVisitor;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 import datawave.query.Constants;
 import datawave.query.jexl.JexlASTHelper;
 

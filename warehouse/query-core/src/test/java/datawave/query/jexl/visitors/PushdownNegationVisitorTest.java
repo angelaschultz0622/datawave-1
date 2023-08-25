@@ -17,8 +17,9 @@ import org.apache.commons.jexl2.parser.ParseException;
 import org.junit.Before;
 import org.junit.Test;
 
+import datawave.core.query.jexl.JexlNodeFactory;
+import datawave.core.query.jexl.visitors.JexlStringBuildingVisitor;
 import datawave.query.jexl.JexlASTHelper;
-import datawave.query.jexl.JexlNodeFactory;
 import datawave.test.JexlNodeAssert;
 
 public class PushdownNegationVisitorTest {

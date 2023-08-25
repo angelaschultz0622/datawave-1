@@ -15,6 +15,9 @@
         <module>common</module>
         <module>common-util</module>
         <module>connection-pool</module>
+        <module>exceptions</module>
+        <module>geo</module>
+        <module>jexl</module>
         <module>map-reduce</module>
         <module>modification</module>
         <module>query</module>

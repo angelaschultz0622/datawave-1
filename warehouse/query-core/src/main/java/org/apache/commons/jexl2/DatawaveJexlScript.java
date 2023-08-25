@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 
 import org.apache.commons.jexl2.parser.ASTJexlScript;
 
-import datawave.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
+import datawave.core.query.jexl.visitors.TreeFlatteningRebuildingVisitor;
 
 /**
  * Lifted from {@link ExpressionImpl}. Modified to flatten the resulting {@link ASTJexlScript}.
