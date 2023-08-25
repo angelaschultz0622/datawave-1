@@ -71,32 +71,69 @@ For the Browse Lite extension, you will need to set `Browse-lite: Chrome Executa
 # Functionality
 
 - Plot the geometries from a query on the map
- - Group query geometries by field
- - Expand geometry collections into individual geometries
+  - Group query geometries by field
+  - Expand geometry collections into individual geometries
 - Plot geo ranges from a query on the map
- - Group geo ranges by field, and tier
+  - Group geo ranges by field, and tier
 - Plot any given WKT, GeoJSON on the map
 - Export any geometry to WKT, or GeoJSON
 - Load a query given a query ID
 - List queries for the current user?
 - Use a marker for zoomed-out, hard to see geometries
- - Add ability to turn markers on or off
+  - Add ability to turn markers on or off
 - Change default polygon colors depending on the basemap
 - Utilities:
- - Convert (single? multiple?) WKT to GeoWave Index
- - Convert (single? multiple?) WKT to Geo Index
- - Find/highlight range/term, and geo function matching geometry
- - Split a query geometry naturally (in case of geometry collection) or forcefully
- - Set portions of a query as evaluation only with the click of a mouse (query editor?)
- - Submit query, and expand into index terms/ranges for analysis. with and without optimization.  add ability to turn knobs to see the effect
-
+  - Convert (single? multiple?) WKT to GeoWave Index
+  - Convert (single? multiple?) WKT to Geo Index
+  - Find/highlight range/term, and geo function matching geometry
+  - Split a query geometry naturally (in case of geometry collection) or forcefully
+  - Set portions of a query as evaluation only with the click of a mouse (query editor?)
+  - Submit query, and expand into index terms/ranges for analysis. with and without optimization.  add ability to turn knobs to see the effect
+  - Add ability to draw custom shapes on map.
+  - Use ANDI bookmarklet to gauge accessibility
+  - See arcgis.com for example app layout
+  - Pull geowave/geo fields from 1) config, 2) dictionary, 3) user override
+  - 
 # Questions
 
 - Single query per page, or multiple?
 - Endpoint that returns all computer information for a query and it's geometries/ranges?
 - Cache individual user's data so that it persists between sessions?
+- Add ability to save session to file?
+- Create a layout like ArcGIS?
 
 # Technologies to check out
 - Formkit
 - PrimeVue
 - Pinia
+
+# Example Query Data
+
+{
+   queryId: 'abc-123',
+   functions: [
+      {
+         function: '#INTERSECTS((FIELD1 || FIELD2), ...)',
+         fields: ['FIELD1', 'FIELD2'],
+         wkt: '...',
+         geojson: '...'
+      },
+   ],
+   fields: {
+      'FIELD1': {
+         type: 'GeoWave',
+         tiers: [
+            {
+               tier: '0',
+               wkt: '...'
+               geojson: '...'
+            },
+         ]
+      },
+      'FIELD2': {
+         type: 'Geo',
+         wkt: '...',
+         geojson: '...'
+      },
+   }
+}

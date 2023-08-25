@@ -16,6 +16,11 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+datawave:
+  table:
+    cache:
+      enabled: false
 ---
 
 # For the dev profile, check localhost for the config server by default
